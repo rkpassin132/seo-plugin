@@ -1,0 +1,21 @@
+{
+  "name": "Seo tools",
+  "description": "SEO Tools !",
+  "version": "1.0",
+  "manifest_version": 2,
+  "browser_action": {
+    "default_popup": "index.html",
+    "default_icon": "assets/img/logo/seo-48.png"
+  },
+  "icons": {
+    "16": "assets/img/logo/seo-16.png",
+    "32": "assets/img/logo/seo-32.png",
+    "48": "assets/img/logo/seo-48.png",
+    "128": "assets/img/logo/seo-128.png"
+  },
+  "background": {
+    "scripts": ["assets/js/background.js"],
+    "persistent": true
+  },
+  "permissions": ["storage", "activeTab"]
+}
