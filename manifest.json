@@ -9,9 +9,9 @@
   },
   "content_scripts": [
     {
-      "matches": ["http://*/*"],
+      "matches": ["<all_urls>"],
       "css": ["assets/css/index.css"],
-      "js": ["assets/js/jquery.min.js", "assets/js/index.js"]
+      "js": ["assets/js/jquery.min.js", "assets/js/index.js", "assets/js/code.js"]
     }
   ],
   "icons": {
@@ -24,5 +24,5 @@
     "scripts": ["assets/js/background.js"],
     "persistent": true
   },
-  "permissions": ["storage", "activeTab", "tabs"]
+  "permissions": ["storage", "activeTab", "tabs", "<all_urls>"]
 }
