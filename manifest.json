@@ -7,6 +7,13 @@
     "default_popup": "index.html",
     "default_icon": "assets/img/logo/seo-48.png"
   },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*"],
+      "css": ["assets/css/index.css"],
+      "js": ["assets/js/jquery.min.js", "assets/js/index.js"]
+    }
+  ],
   "icons": {
     "16": "assets/img/logo/seo-16.png",
     "32": "assets/img/logo/seo-32.png",
@@ -17,5 +24,5 @@
     "scripts": ["assets/js/background.js"],
     "persistent": true
   },
-  "permissions": ["storage", "activeTab"]
+  "permissions": ["storage", "activeTab", "tabs"]
 }
