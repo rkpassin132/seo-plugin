@@ -8,6 +8,7 @@ $('document').ready(function(){
         $("#tab_dimension").text("Dimension : " + width +" * "+ height);
         $("#tab_title").text(title);
         chrome.storage.local.set({"tab": tab});
+        chrome.tabs.executeScript( tab.id, { code : get_page_details_code() });
         chrome.tabs.executeScript( tab.id, { code : get_tag('h1', ['textContent']) }, () => {
             chrome.tabs.executeScript( tab.id, { code : get_tag('h2', ['textContent']) }, () => {
                 chrome.tabs.executeScript( tab.id, { code : get_tag('h3', ['textContent']) }, () => {
@@ -42,6 +43,18 @@ $('document').ready(function(){
         
     });
     
+    $("#count_aphabet_input").bind('input propertychange', function(e){
+        $("#count_aphabet_answer").text($(this).val().length);
+    });
+    $("#count_word_input").bind('input propertychange', function(e){
+        $("#count_word_answer").text($(this).val().split(/[\s\.\?]+/).length);
+    });
+    $("#count_sentance_input").bind('input propertychange', function(e){
+        var text = $(this).val();
+        var split = text.split(".");
+        var amountOfSentences = text.charAt(text.length - 1) == "." ? split.length : split.length + 1;
+        $("#count_sentance_answer").text(amountOfSentences);
+    });
 });
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     let data = request.source;
@@ -124,6 +137,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             for(image of data){
                 html += `
                 <tr>
+                    <td><img src="${image.src}" class="rounded-circle bg-dark" id="tab_favIconUrl" height="35" width="35" alt="Avatar"></td>
                     <td><a href="${image.src}" target="_blank" rel="">${image.src}</a></td>
                 </tr>`;
             }
@@ -222,6 +236,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             }
             $("#meta_data").html(html);
             break;
+        case "get_page_details":
+            chrome.storage.local.set({"page_details": data});
+            $(".tab_page_size").text(data.page_size + " kb");
+            const date = new Date(data.load_time);
+            $(".tab_page_load_time").text(`${date.getSeconds()}:${date.getMilliseconds()} sec`);
+            break;
         case "get_completed":
             // data completed
             chrome.storage.local.get(['tab','h1','h2','h3','h4','h5','h6','a','img','video','script','link','meta'], function(local) {
@@ -236,6 +256,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
                                 get_external_internal_link(tab_url.hostname, local.link, link).then((link) => {
                                     $(".internal_link_count").text(link.internal);
                                     $(".external_link_count").text(link.external);
+                                    $("#total_links").text(link.internal + link.external)
                                 });
                             });
                         });

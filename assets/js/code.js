@@ -22,7 +22,6 @@ function get_tag(tag, attributes = []) {
     // creating code string
     let code = `
     var send_${tag} = [];
-    console.log(document.getElementsByTagName("${tag}"));
     for(data of document.getElementsByTagName("${tag}")){`;
     if (tag == "meta") {
         code += `let obj = {};
@@ -46,6 +45,14 @@ function get_tag(tag, attributes = []) {
     code += `}
     chrome.runtime.sendMessage({action: "get_${tag}", source: send_${tag}});
     `;
+    return code;
+}
+
+function get_page_details_code(){
+    var code = `
+    var page_size = (document.documentElement.outerHTML.length/1024).toFixed(0);
+    var load_time = window.performance.timing.domContentLoadedEventEnd- window.performance.timing.navigationStart;
+    chrome.runtime.sendMessage({ action: "get_page_details", source: {page_size, load_time} });`;
     return code;
 }
 

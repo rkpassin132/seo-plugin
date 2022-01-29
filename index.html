@@ -55,9 +55,15 @@
                     </li>
 
                     <li class="nav-item" role="presentation">
-                        <img src="assets/img/icon/tools.svg" height="18" alt="">
+                        <img src="assets/img/icon/countdown.png" height="18" alt="">
                         <a class="nav-link pt-2" id="ex1-tab-4" data-mdb-toggle="tab" href="#ex1-tabs-4" role="tab"
-                            aria-controls="ex1-tabs-4" aria-selected="false">Tools</a>
+                            aria-controls="ex1-tabs-4" aria-selected="false">Counts</a>
+                    </li>
+
+                    <li class="nav-item" role="presentation">
+                        <img src="assets/img/icon/tools.svg" height="18" alt="">
+                        <a class="nav-link pt-2" id="ex1-tab-5" data-mdb-toggle="tab" href="#ex1-tabs-5" role="tab"
+                            aria-controls="ex1-tabs-5" aria-selected="false">Tools</a>
                     </li>
                 </ul>
                 <!-- Tabs navs -->
@@ -106,8 +112,8 @@
                         <div class="col-4">
                             <div class="card text-center">
                                 <div class="p-3">
-                                    <p class="card-text text-muted f-13">RANKING KEYWORDS</p>
-                                    <h5 class="card-title text-primary">99009</h5>
+                                    <p class="card-text text-muted f-13">TOATL LINKS</p>
+                                    <h5 class="card-title text-primary" id="total_links">0</h5>
                                 </div>
                             </div>
                         </div>
@@ -116,8 +122,8 @@
                         <div class="col-4">
                             <div class="card text-center">
                                 <div class="p-3">
-                                    <p class="card-text text-muted f-13">ESTIMATED TRAFFIC</p>
-                                    <h5 class="card-title text-primary">99009</h5>
+                                    <p class="card-text text-muted f-13">PAGE SIZE</p>
+                                    <h5 class="card-title text-primary tab_page_size">0</h5>
                                 </div>
                             </div>
                         </div>
@@ -135,14 +141,15 @@
                         <div class="col-4">
                             <div class="card text-center">
                                 <div class="p-3">
-                                    <p class="card-text text-muted f-13">TRAFFIC VALUE</p>
-                                    <h5 class="card-title text-primary">99009</h5>
+                                    <p class="card-text text-muted f-13">LOAD TIME</p>
+                                    <h5 class="card-title text-primary tab_page_load_time">0</h5>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
                 <div class="row">
                     <div class="col-3">
@@ -376,25 +383,25 @@
                                     <li class="nav-item" role="presentation">
                                         <a class="nav-link active border-0" id="links-tab-1" data-mdb-toggle="tab"
                                             href="#links-tabs-1" role="tab" aria-controls="links-tabs-1"
-                                            aria-selected="true">Anchor<span
+                                            aria-selected="true">Anchor <span
                                                 class="badge rounded-pill bg-primary" id="link_anchor_data_count">0</span></a>
                                     </li>
                                     <li class="nav-item" role="presentation">
                                         <a class="nav-link border-0" id="links-tab-2" data-mdb-toggle="tab"
                                             href="#links-tabs-2" role="tab" aria-controls="links-tabs-2"
-                                            aria-selected="true">Image<span
+                                            aria-selected="true">Image <span
                                                 class="badge rounded-pill bg-primary" id="link_image_data_count">0</span></a>
                                     </li>
                                     <li class="nav-item" role="presentation">
                                         <a class="nav-link border-0" id="links-tab-3" data-mdb-toggle="tab"
                                             href="#links-tabs-3" role="tab" aria-controls="links-tabs-3"
-                                            aria-selected="true">Video<span
+                                            aria-selected="true">Video <span
                                                 class="badge rounded-pill bg-primary" id="link_video_data_count">0</span></a>
                                     </li>
                                     <li class="nav-item border-0" role="presentation">
                                         <a class="nav-link border-0" id="links-tab-4" data-mdb-toggle="tab"
                                             href="#links-tabs-4" role="tab" aria-controls="links-tabs-4"
-                                            aria-selected="false">Links<span
+                                            aria-selected="false">Links <span
                                                 class="badge rounded-pill bg-primary" id="link_link_data_count">0</span></a>
                                     </li>
                                     <li class="nav-item border-0" role="presentation">
@@ -440,6 +447,7 @@
                                                     <table id="table_link_image" class="table table-hover table-sm">
                                                         <thead>
                                                             <tr>
+                                                                <th class="text-center" scope="col">Image</th>
                                                                 <th class="text-center" scope="col">Src</th>
                                                             </tr>
                                                         </thead>
@@ -516,6 +524,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="tab-pane fade" id="ex1-tabs-3" role="tabpanel" aria-labelledby="ex1-tab-3">
                 <div class="p-4">
                     <div class="row">
@@ -582,6 +591,54 @@
             </div>
 
             <div class="tab-pane fade" id="ex1-tabs-4" role="tabpanel" aria-labelledby="ex1-tab-4">
+                <div class="p-4">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card text-center">
+                                <div class="p-3">
+                                    <p class="card-text text-muted f-13">COUNT APHABET <span class="badge rounded-pill bg-primary" id="count_aphabet_answer">0</span></p>
+                                    <form class="">
+                                        <div class="form-outline">
+                                            <textarea class="form-control" placeholder="Enter text here" id="count_aphabet_input" rows="2"></textarea>
+                                            <label class="form-label" for="count_aphabet_input">Message</label>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card text-center">
+                                <div class="p-3">
+                                    <p class="card-text text-muted f-13">COUNT WORD <span class="badge rounded-pill bg-primary" id="count_word_answer">0</span></p>
+                                    <form class="">
+                                        <div class="form-outline">
+                                            <textarea class="form-control" placeholder="Enter text here" id="count_word_input" rows="2"></textarea>
+                                            <label class="form-label" for="count_word_input">Message</label>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="card text-center">
+                                <div class="p-3">
+                                    <p class="card-text text-muted f-13">COUNT SENTANCE <span class="badge rounded-pill bg-primary" id="count_sentance_answer">0</span></p>
+                                    <form class="">
+                                        <div class="form-outline">
+                                            <textarea class="form-control" placeholder="Enter text here" id="count_sentance_input" rows="3"></textarea>
+                                            <label class="form-label" for="count_sentance_input">Message</label>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="ex1-tabs-5" role="tabpanel" aria-labelledby="ex1-tab-5">
                 <div class="p-4">
                     <div class="row">
                         <div class="col-6">
