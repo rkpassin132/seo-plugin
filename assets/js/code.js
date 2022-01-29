@@ -1,5 +1,18 @@
 /** @format */
 
+async function get_external_internal_link(tab_host, data, link){
+    for(d of data){
+        var url = null;
+        if('href' in d) url = new URL(d.href);
+        if('src' in d) url = new URL(d.src);
+        if(url != null){ 
+            if(url.hostname === tab_host) ++link.internal;
+            else ++link.external;
+        }
+    }
+    return link;
+}
+
 function get_tag(tag, attributes = []) {
     // attributes array to string
     let attribute = "[";
@@ -8,15 +21,20 @@ function get_tag(tag, attributes = []) {
     
     // creating code string
     let code = `
-    let code_${tag} = document.getElementsByTagName("${tag}");
-    let send_${tag} = [];
-    for(data of code_${tag}){`;
+    var send_${tag} = [];
+    console.log(document.getElementsByTagName("${tag}"));
+    for(data of document.getElementsByTagName("${tag}")){`;
     if (tag == "meta") {
         code += `let obj = {};
-            if(data.hasAttribute("name")) obj["name"] = data.getAttribute('name')
-            if(data.hasAttribute("property")) obj["name"] = data.getAttribute('property')
-            obj["context"] = data.getAttribute('content');
-            send_${tag}.push(obj);`;
+            if(data.hasAttribute("name")) {
+                obj["name"] = data.getAttribute('name');
+                obj["context"] = data.getAttribute('content');
+            }
+            if(data.hasAttribute("property")){ 
+                obj["name"] = data.getAttribute('property');
+                obj["context"] = data.getAttribute('content');
+            }
+            if(Object.keys(obj).length !== 0) send_${tag}.push(obj);`;
     } else {
         code += `let obj = {};
             for (key of ${attribute}){
@@ -26,7 +44,6 @@ function get_tag(tag, attributes = []) {
             `;
     }
     code += `}
-    send_${tag} = send_${tag}.length > 0 ? send_${tag} : null;
     chrome.runtime.sendMessage({action: "get_${tag}", source: send_${tag}});
     `;
     return code;

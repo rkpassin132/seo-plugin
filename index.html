@@ -16,11 +16,14 @@
     <link rel="stylesheet" href="plugin/md5/font/css2.css" />
     <!-- MDB -->
     <link rel="stylesheet" href="plugin/md5/css/mdb.min.css" />
+    <!-- datatable -->
+    <link rel="stylesheet" href="plugin/datatable/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="plugin/datatable/dataTables.bootstrap5.min.css" />
     <!-- index -->
     <link rel="stylesheet" href="assets/css/index.css" />
 </head>
 
-<body class="w-600">
+<body class="w-800">
     <!-- Start your project here-->
     <div class="">
         <header>
@@ -70,11 +73,23 @@
             <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1">
                 <div class="p-4">
                     <div class="row">
+                        <div class="col-12 list-group text-capitalize f-13 border-0">
+                            <label class="list-group-item border-0 ps-0 p-1 text-center">
+                                <img src="#"
+                                    class="rounded-circle" id="tab_favIconUrl" height="18" alt="Avatar">
+                                <a href="#" class="ms-2 text-body" id="tab_url">Majestic</a>
+                            </label>
+                            <label class="list-group-item border-0 ps-0 p-1 text-center">
+                                <p class="ms-2 text-body" id="tab_dimension"></p>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
                         <div class="col-4">
                             <div class="card text-center">
                                 <div class="p-3">
                                     <p class="card-text text-muted f-13">LINKS TO PAGE</p>
-                                    <h5 class="card-title text-primary">99009</h5>
+                                    <h5 class="card-title text-primary link_to_page_count">0</h5>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +98,7 @@
                             <div class="card text-center">
                                 <div class="p-3">
                                     <p class="card-text text-muted f-13">LINKS TO DOMAIN</p>
-                                    <h5 class="card-title text-primary">99009</h5>
+                                    <h5 class="card-title text-primary internal_link_count">0</h5>
                                 </div>
                             </div>
                         </div>
@@ -107,7 +122,7 @@
                             </div>
                         </div>
 
-                        <div class="col-4 justify-content-center">
+                        <div class="col-4 justify-content-center text-center">
                             <a class=" navbar-brand justify-content-center mt-2" target="_blank"
                                 href="https://nukepin.com">
                                 <img src="assets/img/nukepin.png" class="me-2" height="40" alt="MDB Logo"
@@ -159,8 +174,8 @@
                             <div class="tab-pane fade show active" id="page-analysis-tabs-1" role="tabpanel"
                                 aria-labelledby="page-analysis-tabs-1-tab v-tabs-home-tab">
                                 <div class="row col-12 m-2 text-center">
-                                    <a href="https://nukepin.com/contact" target="_blank"
-                                        rel="">https://nukepin.com/contact</a>
+                                    <a href="#" class="tab_url" target="_blank"
+                                        rel=""></a>
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
@@ -175,7 +190,7 @@
                                         <div class="card text-center">
                                             <div class="p-2">
                                                 <p class="card-text text-muted f-13">INTERNAL LINKS</p>
-                                                <h5 class="card-title text-primary">99009</h5>
+                                                <h5 class="card-title text-primary internal_link_count">0</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -185,7 +200,7 @@
                                         <div class="card text-center">
                                             <div class="p-2">
                                                 <p class="card-text text-muted f-13">EXTERNAL LINKS</p>
-                                                <h5 class="card-title text-primary">99009</h5>
+                                                <h5 class="card-title text-primary external_link_count">0</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -193,7 +208,7 @@
                                         <div class="card text-center">
                                             <div class="p-2">
                                                 <p class="card-text text-muted f-13">HEADINGS & SUBHEADINGS</p>
-                                                <h5 class="card-title text-primary">99009</h5>
+                                                <h5 class="card-title text-primary" id="h1_h2_count">0</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -203,18 +218,7 @@
                                         <div class="card text-center">
                                             <div class="p-2">
                                                 <p class="card-text text-muted f-13">PAGE TITLE</p>
-                                                <p class="">Bootstrap Borders - examples & tutorial</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row mt-3">
-                                    <div class="col-12">
-                                        <div class="card text-center">
-                                            <div class="p-2">
-                                                <p class="card-text text-muted f-13">PAGE TITLE</p>
-                                                <p class="">Bootstrap Borders - examples & tutorial</p>
+                                                <p id="tab_title"></p>
                                             </div>
                                         </div>
                                     </div>
@@ -225,7 +229,7 @@
                                         <div class="card text-center">
                                             <div class="p-2">
                                                 <p class="card-text text-muted f-13">META DESCRIPTIONS</p>
-                                                <p class="">Bootstrap Borders - examples & tutorial</p>
+                                                <p id="meta_description"></p>
                                             </div>
                                         </div>
                                     </div>
@@ -236,7 +240,7 @@
                                         <div class="card text-center">
                                             <div class="p-2">
                                                 <p class="card-text text-muted f-13">META ROBOTS</p>
-                                                <p class="">Bootstrap Borders - examples & tutorial</p>
+                                                <p id="meta_robots"></p>
                                             </div>
                                         </div>
                                     </div>
@@ -246,60 +250,84 @@
                                 aria-labelledby="page-analysis-tabs-2-tab">
                                 <div class="row">
                                     <div class="col-12">
-                                        <div class="card text-center">
+                                        <div class="card">
                                             <div class="p-2">
-                                                <p class="card-text text-muted f-13">h1</p>
-                                                <p class="">Bootstrap Borders - examples & tutorial</p>
+                                                <p class="card-text text-center text-muted f-13">h1</p>
+                                                <ul class="list-unstyled">
+                                                    <li> 
+                                                        <ul id="h1_data"></ul>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-12">
-                                        <div class="card text-center">
+                                        <div class="card">
                                             <div class="p-2">
-                                                <p class="card-text text-muted f-13">h2</p>
-                                                <p class="">Bootstrap Borders - examples & tutorial</p>
+                                                <p class="card-text text-center text-muted f-13">h2</p>
+                                                <ul class="list-unstyled">
+                                                    <li> 
+                                                        <ul id="h2_data"></ul>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-12">
-                                        <div class="card text-center">
+                                        <div class="card">
                                             <div class="p-2">
-                                                <p class="card-text text-muted f-13">h3</p>
-                                                <p class="">Bootstrap Borders - examples & tutorial</p>
+                                                <p class="card-text text-center text-muted f-13">h3</p>
+                                                <ul class="list-unstyled">
+                                                    <li> 
+                                                        <ul id="h3_data"></ul>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-12">
-                                        <div class="card text-center">
+                                        <div class="card">
                                             <div class="p-2">
-                                                <p class="card-text text-muted f-13">h4</p>
-                                                <p class="">Bootstrap Borders - examples & tutorial</p>
+                                                <p class="card-text text-center text-muted f-13">h4</p>
+                                                <ul class="list-unstyled">
+                                                    <li> 
+                                                        <ul id="h4_data"></ul>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-12">
-                                        <div class="card text-center">
+                                        <div class="card">
                                             <div class="p-2">
-                                                <p class="card-text text-muted f-13">h5</p>
-                                                <p class="">Bootstrap Borders - examples & tutorial</p>
+                                                <p class="card-text text-center text-muted f-13">h5</p>
+                                                <ul class="list-unstyled">
+                                                    <li> 
+                                                        <ul id="h5_data"></ul>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-12">
-                                        <div class="card text-center">
+                                        <div class="card">
                                             <div class="p-2">
-                                                <p class="card-text text-muted f-13">h6</p>
-                                                <p class="">Bootstrap Borders - examples & tutorial</p>
+                                                <p class="card-text text-center text-muted f-13">h6</p>
+                                                <ul class="list-unstyled">
+                                                    <li> 
+                                                        <ul id="h6_data"></ul>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -310,8 +338,8 @@
                                 aria-labelledby="page-analysis-tabs-3-tab">
                                 <div class="row">
                                     <div class="col-12">
-                                        <div class="card text-center">
-                                            <table class="table table-hover table-sm">
+                                        <div class="card p-3 text-center">
+                                            <table id="table_page_keywords" class="table table-hover table-sm">
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">#</th>
@@ -348,14 +376,32 @@
                                     <li class="nav-item" role="presentation">
                                         <a class="nav-link active border-0" id="links-tab-1" data-mdb-toggle="tab"
                                             href="#links-tabs-1" role="tab" aria-controls="links-tabs-1"
-                                            aria-selected="true">Internal links <span
-                                                class="badge rounded-pill bg-primary">102</span></a>
+                                            aria-selected="true">Anchor<span
+                                                class="badge rounded-pill bg-primary" id="link_anchor_data_count">0</span></a>
                                     </li>
-                                    <li class="nav-item border-0" role="presentation">
+                                    <li class="nav-item" role="presentation">
                                         <a class="nav-link border-0" id="links-tab-2" data-mdb-toggle="tab"
                                             href="#links-tabs-2" role="tab" aria-controls="links-tabs-2"
-                                            aria-selected="false">External links <span
-                                                class="badge rounded-pill bg-primary">1022</span></a>
+                                            aria-selected="true">Image<span
+                                                class="badge rounded-pill bg-primary" id="link_image_data_count">0</span></a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link border-0" id="links-tab-3" data-mdb-toggle="tab"
+                                            href="#links-tabs-3" role="tab" aria-controls="links-tabs-3"
+                                            aria-selected="true">Video<span
+                                                class="badge rounded-pill bg-primary" id="link_video_data_count">0</span></a>
+                                    </li>
+                                    <li class="nav-item border-0" role="presentation">
+                                        <a class="nav-link border-0" id="links-tab-4" data-mdb-toggle="tab"
+                                            href="#links-tabs-4" role="tab" aria-controls="links-tabs-4"
+                                            aria-selected="false">Links<span
+                                                class="badge rounded-pill bg-primary" id="link_link_data_count">0</span></a>
+                                    </li>
+                                    <li class="nav-item border-0" role="presentation">
+                                        <a class="nav-link border-0" id="links-tab-5" data-mdb-toggle="tab"
+                                            href="#links-tabs-5" role="tab" aria-controls="links-tabs-5"
+                                            aria-selected="false">Script <span 
+                                                class="badge rounded-pill bg-primary" id="link_script_data_count">0</span></a>
                                     </li>
                                 </ul>
                                 <!-- Tabs navs -->
@@ -366,29 +412,19 @@
                                         aria-labelledby="links-tab-1">
                                         <div class="row">
                                             <div class="col-12">
-                                                <div class="card text-center">
-                                                    <table class="table table-hover table-sm">
+                                                <div class="card p-3">
+                                                    <table id="table_link_anchor"  class="table table-hover table-sm">
                                                         <thead>
                                                             <tr>
-                                                                <th scope="col">Link</th>
-                                                                <th scope="col">Rel</th>
+                                                                <th class="text-center" scope="col">Href</th>
+                                                                <th class="text-center" scope="col">Host</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody>
+                                                        <tbody id="link_anchor_data">
                                                             <tr>
                                                                 <td><a href="http://nukepin.com" target="_blank"
                                                                         rel="">https://nukepin.com</a></td>
                                                                 <td>22</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><a href="http://nukepin.com" target="_blank"
-                                                                        rel="">https://nukepin.com</a></td>
-                                                                <td>323</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><a href="http://nukepin.com" target="_blank"
-                                                                        rel="">https://nukepin.com</a></td>
-                                                                <td>20</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -400,30 +436,68 @@
                                         aria-labelledby="links-tab-2">
                                         <div class="row">
                                             <div class="col-12">
-                                                <div class="card text-center">
-                                                    <table class="table table-hover table-sm">
+                                                <div class="card p-3">
+                                                    <table id="table_link_image" class="table table-hover table-sm">
                                                         <thead>
                                                             <tr>
-                                                                <th scope="col">Link</th>
-                                                                <th scope="col">Rel</th>
+                                                                <th class="text-center" scope="col">Src</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody>
+                                                        <tbody  id="link_image_data">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="links-tabs-3" role="tabpanel"
+                                        aria-labelledby="links-tab-3">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="card p-3">
+                                                    <table id="table_link_video" class="table table-hover table-sm">
+                                                        <thead>
                                                             <tr>
-                                                                <td><a href="http://nukepin.com" target="_blank"
-                                                                        rel="">https://nukepin.com</a></td>
-                                                                <td>22</td>
+                                                                <th class="text-center" scope="col">Src</th>
                                                             </tr>
+                                                        </thead>
+                                                        <tbody  id="link_video_data">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="links-tabs-4" role="tabpanel"
+                                        aria-labelledby="links-tab-4">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="card p-3">
+                                                    <table id="table_link_link" class="table table-hover table-sm">
+                                                        <thead>
                                                             <tr>
-                                                                <td><a href="http://nukepin.com" target="_blank"
-                                                                        rel="">https://nukepin.com</a></td>
-                                                                <td>323</td>
+                                                                <th class="text-center" scope="col">Href</th>
                                                             </tr>
+                                                        </thead>
+                                                        <tbody  id="link_link_data">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="links-tabs-5" role="tabpanel"
+                                        aria-labelledby="links-tab-5">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="card p-3">
+                                                    <table id="table_link_script" class="table table-hover table-sm">
+                                                        <thead>
                                                             <tr>
-                                                                <td><a href="http://nukepin.com" target="_blank"
-                                                                        rel="">https://nukepin.com</a></td>
-                                                                <td>20</td>
+                                                                <th class="text-center" scope="col">Src</th>
                                                             </tr>
+                                                        </thead>
+                                                        <tbody  id="link_script_data">
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -435,46 +509,7 @@
                             </div>
                             <div class="tab-pane fade" id="page-analysis-tabs-5" role="tabpanel"
                                 aria-labelledby="page-analysis-tabs-5-tab">
-                                <div class="row mt-2">
-                                    <div class="col-12">
-                                        <div class="card text-center">
-                                            <div class="p-2">
-                                                <p class="card-text text-muted f-13">Meta heading</p>
-                                                <p class="">Bootstrap Borders - examples & tutorial</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row  mt-2">
-                                    <div class="col-12">
-                                        <div class="card text-center">
-                                            <div class="p-2">
-                                                <p class="card-text text-muted f-13">Meta description</p>
-                                                <p class="">Bootstrap Borders - examples & tutorial</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row  mt-2">
-                                    <div class="col-12">
-                                        <div class="card text-center">
-                                            <div class="p-2">
-                                                <p class="card-text text-muted f-13">Meta keywords</p>
-                                                <p class="">Bootstrap Borders - examples & tutorial</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row  mt-2">
-                                    <div class="col-12">
-                                        <div class="card text-center">
-                                            <div class="p-2">
-                                                <p class="card-text text-muted f-13">Meta Author</p>
-                                                <p class="">Bootstrap Borders - examples & tutorial</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div id="meta_data"></div>
                             </div>
                         </div>
                         <!-- Tab content -->
@@ -790,6 +825,10 @@
     <!-- MDB -->
     <script type="text/javascript" src="plugin/md5/js/mdb.min.js"></script>
     <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="plugin/datatable/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="plugin/datatable/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="plugin/datatable/jszip.min.js"></script>
+    <script type="text/javascript" src="plugin/datatable/buttons.html5.min.js"></script>
     <script type="text/javascript" src="assets/js/code.js"></script>
     <script type="text/javascript" src="assets/js/index.js"></script>
     <!-- Custom scripts -->
