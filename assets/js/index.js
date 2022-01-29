@@ -2,8 +2,11 @@ $('document').ready(function(){
 
     chrome.tabs.getSelected(null, function(tab){
         let { index, url, height, width, favIconUrl, title }  = tab;
+        var tab_url = new URL(url);
         $(".tab_url").text(url).attr("href", url);
         $("#tab_url").text(title).attr("href", url);
+        $(".tab_sitemap").attr("href",  tab_url.origin + "/sitemap.xml");
+        $(".tab_robots").attr("href",  tab_url.origin + "/robots.txt");
         $("#tab_favIconUrl").attr("src", favIconUrl);
         $("#tab_dimension").text("Dimension : " + width +" * "+ height);
         $("#tab_title").text(title);
@@ -266,7 +269,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
                 get_external_internal_link(tab_url.hostname, local.a, {internal:0, external:0}).then((link) => {
                     $(".link_to_page_count").text(link.internal);
                 });
-                console.log(local);
 
             });
             break;
