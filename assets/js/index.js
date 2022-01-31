@@ -12,37 +12,26 @@ $('document').ready(function(){
         $("#tab_title").text(title);
         chrome.storage.local.set({"tab": tab});
         chrome.tabs.executeScript( tab.id, { code : get_page_details_code() });
-        chrome.tabs.executeScript( tab.id, { code : get_tag('h1', ['textContent']) }, () => {
-            chrome.tabs.executeScript( tab.id, { code : get_tag('h2', ['textContent']) }, () => {
-                chrome.tabs.executeScript( tab.id, { code : get_tag('h3', ['textContent']) }, () => {
-                    chrome.tabs.executeScript( tab.id, { code : get_tag('h4', ['textContent']) }, () => {
-                        chrome.tabs.executeScript( tab.id, { code : get_tag('h5', ['textContent']) }, () => {
-                            chrome.tabs.executeScript( tab.id, { code : get_tag('h6', ['textContent']) }, () => {
-                                chrome.tabs.executeScript( tab.id, { code : get_tag('a', ['host', 'href','textContent']) }, () => {
-                                    chrome.tabs.executeScript( tab.id, { code : get_tag('img', ['src']) }, () => {
-                                        chrome.tabs.executeScript( tab.id, { code : get_tag('video', ['src']) }, () => {
-                                            chrome.tabs.executeScript( tab.id, { code : get_tag('link', ['href']) }, () => {
-                                                chrome.tabs.executeScript( tab.id, { code : get_tag('script', ['src']) }, () => {
-                                                    chrome.tabs.executeScript( tab.id, { code : get_tag('meta') }, () => {
-                                                        chrome.tabs.executeScript( tab.id, { code : 'chrome.runtime.sendMessage({action: "get_completed", source: true});' });
-                                                    });
-                                                });
-                                            });
-                                        });
-                                    });
-                                });
+        chrome.tabs.executeScript( tab.id, { code : get_tag('p', ['textContent']) });
+        chrome.tabs.executeScript( tab.id, { code : get_tag('h1', ['textContent']) });
+        chrome.tabs.executeScript( tab.id, { code : get_tag('h2', ['textContent']) });
+        chrome.tabs.executeScript( tab.id, { code : get_tag('h3', ['textContent']) });
+        chrome.tabs.executeScript( tab.id, { code : get_tag('h4', ['textContent']) });
+        chrome.tabs.executeScript( tab.id, { code : get_tag('h5', ['textContent']) });
+        chrome.tabs.executeScript( tab.id, { code : get_tag('h6', ['textContent']) });
+        chrome.tabs.executeScript( tab.id, { code : get_tag('a', ['host', 'href','textContent']) }, () => {
+            chrome.tabs.executeScript( tab.id, { code : get_tag('img', ['src']) }, () => {
+                chrome.tabs.executeScript( tab.id, { code : get_tag('video', ['src']) }, () => {
+                    chrome.tabs.executeScript( tab.id, { code : get_tag('link', ['href']) }, () => {
+                        chrome.tabs.executeScript( tab.id, { code : get_tag('script', ['src']) }, () => {
+                            chrome.tabs.executeScript( tab.id, { code : get_tag('meta') }, () => {
+                                chrome.tabs.executeScript( tab.id, { code : 'chrome.runtime.sendMessage({action: "get_completed", source: true});' });
                             });
                         });
-                    }); 
+                    });
                 });
             });
         });
-        
-        
-        
-        
-        
-        
         
     });
     
@@ -62,6 +51,10 @@ $('document').ready(function(){
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     let data = request.source;
     switch (request.action) {
+        case "get_p":
+            // p data 
+            chrome.storage.local.set({"p": data});
+            break;
         case "get_h1":
             // h1 data 
             chrome.storage.local.set({"h1": data});
@@ -247,7 +240,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             break;
         case "get_completed":
             // data completed
-            chrome.storage.local.get(['tab','h1','h2','h3','h4','h5','h6','a','img','video','script','link','meta'], function(local) {
+            chrome.storage.local.get(['tab','p','h1','h2','h3','h4','h5','h6','a','img','video','script','link','meta'], function(local) {
                 chrome.storage.local.clear();
                 $("#h1_h2_count").text(local.h1.length + local.h2.length);
 
@@ -268,6 +261,41 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
                 get_external_internal_link(tab_url.hostname, local.a, {internal:0, external:0}).then((link) => {
                     $(".link_to_page_count").text(link.internal);
+                });
+                
+                get_text(local.p, {}).then((keywords) => {
+                    get_text(local.h1, keywords).then((keywords) => {
+                        get_text(local.h2, keywords).then((keywords) => {
+                            get_text(local.h3, keywords).then((keywords) => {
+                                get_text(local.h4, keywords).then((keywords) => {
+                                    get_text(local.h5, keywords).then((keywords) => {
+                                        get_text(local.h6, keywords).then((keywords) => {
+                                            get_text(local.meta, keywords, true).then((keywords) => {
+                                                if(Object.keys(keywords).length == 0) return;
+                                                var html = "";
+                                                for(var keyword in keywords){
+                                                    html += `
+                                                    <tr>
+                                                        <td>${keyword}</td>
+                                                        <td>${keywords[keyword]}</td>
+                                                    </tr>`;
+                                                }
+                                                $("#page_keywords_data").html(html);
+                                                $("#page_keywords_data_count").text(Object.keys(keywords).length);
+                                                $("#table_page_keywords").DataTable({
+                                                    dom: 'Bfrtip',
+                                                    buttons: [
+                                                        'copyHtml5',
+                                                        'excelHtml5',
+                                                    ]
+                                                });
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
                 });
 
             });
