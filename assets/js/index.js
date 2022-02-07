@@ -1,7 +1,13 @@
 $('document').ready(function(){
 
-    chrome.tabs.getSelected(null, function(tab){
+    chrome.tabs.getSelected( function(tab){
+        // validate tab
+        if(!tab) return;
         let { index, url, height, width, favIconUrl, title }  = tab;
+        var hasValidUrlProtocol = ['http://', 'https://'].some(protocol => url.startsWith(protocol));
+        if(!hasValidUrlProtocol) return;
+
+        // get tab data
         var tab_url = new URL(url);
         $(".tab_url").text(url).attr("href", url);
         $("#tab_url").text(title).attr("href", url);
@@ -281,7 +287,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
                                                     </tr>`;
                                                 }
                                                 $("#page_keywords_data").html(html);
-                                                $("#page_keywords_data_count").text(Object.keys(keywords).length);
+                                                $(".page_keywords_data_count").text(Object.keys(keywords).length);
                                                 $("#table_page_keywords").DataTable({
                                                     dom: 'Bfrtip',
                                                     buttons: [

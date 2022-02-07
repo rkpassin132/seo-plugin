@@ -11,7 +11,7 @@
     {
       "matches": ["<all_urls>"],
       "css": ["assets/css/index.css", "plugin/datatable/jquery.dataTables.min.css"],
-      "js": ["assets/js/jquery.min.js", "assets/js/index.js", "assets/js/code.js", "plugin/datatable/jquery.dataTables.min.js"]
+      "js": ["assets/js/jquery.min.js", "assets/js/code.js", "plugin/datatable/jquery.dataTables.min.js"]
     }
   ],
   "icons": {
