@@ -50,8 +50,9 @@ $('document').ready(function(){
     $("#count_sentance_input").bind('input propertychange', function(e){
         var text = $(this).val();
         var split = text.split(".");
-        var amountOfSentences = text.charAt(text.length - 1) == "." ? split.length : split.length + 1;
-        $("#count_sentance_answer").text(amountOfSentences);
+        // console.log(split);
+        // var amountOfSentences = text.charAt(text.length - 1) == "." ? split.length : split.length + 1;
+        $("#count_sentance_answer").text(split.length-1);
     });
 });
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
